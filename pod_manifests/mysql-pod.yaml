@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysqlpod
+  namespace: assign2space
+  labels:
+    app: mysql
+spec:
+  imagePullSecrets:
+  - name: secret2ecr
+  containers:
+  - name: mysql
+    image: 418213695712.dkr.ecr.us-east-1.amazonaws.com/clo835_assign2:webapp-v0.1
+    env:
+      - name: MYSQL_ROOT_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: mysql-credentials
+            key: DBPWD
+    ports:
+    - containerPort: 3306

@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp-pod
+  namespace: assign2space
+  labels:
+    app: employees
+spec:
+  imagePullSecrets:
+    - name: secret2ecr
+  containers:
+    - name: webapp
+      image: 418213695712.dkr.ecr.us-east-1.amazonaws.com/clo835_assign2:webapp-v0.1
+      ports:
+        - containerPort: 8080
+      env:
+        - name: DBHOST
+          value: mysqlpod
+        - name: DBUSER
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: DBUSER
+        - name: DBPORT
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: DBPORT
+        - name: DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: DATABASE
+        - name: DBPWD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: DBPWD
