@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: assign2space
+data:
+  DBHOST: "mysql-pod"
+  DBUSER: "root"
+  DBPORT: "3306"
+  DATABASE: "employees"
