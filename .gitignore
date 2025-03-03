@@ -1,0 +1,27 @@
+# Ignore SSH private keys
+assign2
+assign2.pub
+*.pem
+*.key
+
+# Ignore AWS CLI credentials
+.aws/
+~/.aws/credentials
+~/.aws/config
+
+# Ignore Terraform state files and cache
+terraform.tfstate
+terraform.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+
+# Ignore Kubernetes secrets and kubeconfig
+.kube/config
+.kube/*.crt
+.kube/*.key
+
+# Ignore Docker credentials
+.docker/config.json
+
+# Ignore log files
+*.log
