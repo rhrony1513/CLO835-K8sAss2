@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: webapp-replicaset
+  namespace: assign2space
+  labels:
+    app: employees
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: employees
+  template:
+    metadata:
+      labels:
+        app: employees
+    spec:
+      imagePullSecrets:
+        - name: secret2ecr
+      containers:
+        - name: webapp
+          image: 418213695712.dkr.ecr.us-east-1.amazonaws.com/clo835_assign2:webapp-v0.1
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DBHOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DBHOST
+            - name: DBUSER
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DBUSER
+            - name: DBPORT
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DBPORT
+            - name: DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DATABASE
+            - name: DBPWD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credentials
+                  key: DBPWD
